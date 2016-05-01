@@ -1,11 +1,23 @@
-var io = require('socket.io')();
+// APENAS UM PIPE PARA O RASPBERRY
+'use strict';
 
+const Express = require('express');
+const BodyParser = require('body-parser');
+const io      = require('socket.io')();
+const app     = Express();
 
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
+const requests = [];
+
+function command(req, res){
+  io.emit('command', {
+    type : req.params.command,
+    id   : req.params.id
+  })
+  res.end("Okay");
+}
+
+app.use(BodyParser.json());
+app.get('/:command/:id', command)
+app.listen(3079);
 
 io.listen(3080);
