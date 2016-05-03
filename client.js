@@ -16,7 +16,7 @@ methods.liga = function(data){
   Leds.acendeLed(data.id);
 }
 
-method.desliga = function(data){
+methods.desliga = function(data){
   Leds.apagaLed(data.id);
 }
 
