@@ -4,8 +4,9 @@
 const Express = require('express');
 const BodyParser = require('body-parser');
 const io      = require('socket.io')();
-const app     = Express();
+const cors    = require('cors')
 
+const app     = Express();
 const requests = [];
 
 function command(req, res){
@@ -17,6 +18,7 @@ function command(req, res){
 }
 
 app.use(BodyParser.json());
+app.use(cors())
 app.get('/:command/:id', command)
 app.listen(3079);
 
